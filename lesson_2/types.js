@@ -17,7 +17,7 @@ function compare () {
   console.log('\'number\' + 15 + 3', 'number' + 15 + 3);
   console.log('15 + 3 + \'number\': ', 15 + 3 + 'number');
   console.log('[1] > null: ', [1] > null);
-  console.log('\'foo\' + + \'bar\': ', "foo" + + "bar");
+  console.log('\'foo\' + + \'bar\': ', "foo" + (+ "bar"));
   console.log('\'true\' == true: ', 'true' == true);
   console.log('false == \'false\': ', false == 'false');
   console.log('null == \'\': ', null == '');
@@ -26,7 +26,7 @@ function compare () {
   console.log('[] + null + 1: ', [] + null + 1);
   console.log('0 || "0" && {}: ', 0 || '0' && {});
   console.log('[1,2,3] == [1,2,3]: ', [1,2,3] == [1,2,3]);
-  console.log('!+[]+[]+![]: ', !+[]+[]+![]);
+  console.log('!+[]+[]+![]: ', (!+[])+[]+(![]));
   console.log('new Date(0) - 0: ', new Date(0) - 0);
   console.log('new Date(0) + 0: ', new Date(0) + 0);
 }
