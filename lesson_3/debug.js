@@ -9,10 +9,10 @@ function createMultiplyTable() {
 	var result = [];
 	var tdInner;
 	for (var i = 1; i <= 10; i++) {
+		tdInner = '';
 		for (var j = 1; j <= 10; j++) {
 			tdInner += '<div style="padding: 5px">' + i + '*' + j + '=' + (i * j) + '</div>';
 		}
-
 		result.push(tdInner);
 	}
 	return result;
@@ -31,16 +31,16 @@ function renderMultiplyTable(source) {
 	table.style.width = '100%';
 	table.setAttribute('border', 1);
 
-	for (var i = 1; i <= source.length; i++) {
+	for (var i = 0; i < source.length; i++) {
 		td = document.createElement('td');
-		if (i == 1 || i == 6) {
+		if (i == 0 || i == 5) {
 			tr = document.createElement('tr');
 		}
 
 		td.innerHTML = source[i];
 		tr.appendChild(td);
 
-		if (i == 5 || i == 10) {
+		if (i == 4 || i == 9) {
 			table.appendChild(tr);
 		}
 	}
