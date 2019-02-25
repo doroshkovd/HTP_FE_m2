@@ -12,3 +12,11 @@ describe('es-lint-example.js -> checkTestForPrompt', function(){
         expect(result).toBe('No msg!');
     });
 });
+
+describe('es-lint-example.js -> toCamelCase', function(){
+    it('should format name to camelCase', function() {
+
+        expect(toCamelCase('test_Var-Exp')).toBe('testVarExp');
+        expect(toCamelCase('testVar-Ex-p')).toBe('testVarExP');
+    });
+})
