@@ -70,6 +70,91 @@ function stringTask1(str, params) {
 // console.log(stringTask1('www.yandex.ru'));
 // console.log(stringTask1('http://www.yandex.ru'));
 // console.log(stringTask1('https://www.yandex.ru'));
-console.log(stringTask1('https://www.yandex.ru', ['www.']));
+// console.log(stringTask1('https://www.yandex.ru', ['www.']));
 
 //numTask3([1, 2, -3, 4, 5, 6]);
+
+function hashTask1() {
+    let day = {
+        d1: 'Понедельник',
+        d2: 'Вторник',
+        d3: 'Среда',
+    };
+
+    let bodyEl = document.querySelector('body');
+
+    for ( let key in day ) {
+        bodyEl.innerHTML += `${key} -> ${day[key]}<br>`;
+    }
+}
+
+hashTask1();
+
+function hashTask2() {
+    let items = [
+        {
+            id: 1,
+            name: 'item 1',
+            price: '25$'
+        },
+        {
+            id: 2,
+            name: 'item 2',
+            price: '15$'
+        }
+    ];
+
+    let sum = 0;
+
+    for (let i = 0; i < items.length; i++) {
+        sum += parseInt(items[i].price);
+    }
+    console.log(sum);
+}
+
+function hashTask3() {
+    let items;
+    if (localStorage.getItem('item')) {
+      items = JSON.parse(localStorage.getItem('item'));
+    } else {
+      items = [
+          {
+              id: 1,
+              name: 'item 1',
+              price: '25$'
+            },
+            {
+                id: 2,
+                name: 'item 2',
+                price: '15$'
+            }
+        ];
+    }
+
+    let sum = 0;
+
+    for (let i = 0; i < items.length; i++) {
+        sum += parseInt(items[i].price);
+    }
+    console.log(sum);
+}
+
+function addItem(id, name, price) {
+
+    let cart;
+
+    if (localStorage.getItem('item')) {
+        cart = JSON.parse(localStorage.getItem('item'));
+        cart.push({id, name, price});
+        localStorage.setItem('item', JSON.stringify(cart));
+        hashTask3();
+        return;
+    }
+
+    cart = [{id, name, price}];
+    localStorage.setItem('item', JSON.stringify(cart));
+    hashTask3();
+}
+
+hashTask3();
+
