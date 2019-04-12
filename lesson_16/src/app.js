@@ -5,8 +5,8 @@ import { RouterHistory } from './router-history';
 class App {
     constructor() {
         this.products = [];
-        // this.router = new RouterHistory();
-        this.router = new Router();
+        this.router = new RouterHistory();
+        // this.router = new Router();
         this.checkboxService = new CheckboxService();
         this.checkboxService.subscribe(this.onFilterChange.bind(this));
         this.initSingleProductPage();
@@ -22,24 +22,24 @@ class App {
                 this.products = data;
                 this.generateAllProductsHTML(this.products);
                 this.initRoutes();
-                // this.router.render(decodeURI(window.location.pathname));
-                window.dispatchEvent(new HashChangeEvent('hashchange'));
+                this.router.render(decodeURI(window.location.pathname));
+                // window.dispatchEvent(new HashChangeEvent('hashchange'));
             });
     }
 
     initRoutes() {
         this.router.addRoute('', this.renderHomePage.bind(this));
-        this.router.addRoute('#filter', this.renderFilterResults.bind(this));
-        this.router.addRoute('#product', this.renderSingleProduct.bind(this));
-        // this.router.addRoute('filter', this.renderFilterResults.bind(this));
-        // this.router.addRoute('product', this.renderSingleProduct.bind(this));
+        // this.router.addRoute('#filter', this.renderFilterResults.bind(this));
+        // this.router.addRoute('#product', this.renderSingleProduct.bind(this));
+        this.router.addRoute('filter', this.renderFilterResults.bind(this));
+        this.router.addRoute('product', this.renderSingleProduct.bind(this));
         this.router.addRoute('404', this.renderErrorPage.bind(this));
     }
 
     onFilterChange(data) {
-       location.hash = data;
-      // window.history.pushState(null, 'Filter page', '/' + data);
-      // this.router.render(decodeURI(window.location.pathname));
+       // location.hash = data;
+      window.history.pushState(null, 'Filter page', '/' + data);
+      this.router.render(decodeURI(window.location.pathname));
     }
 
     renderHomePage() {
@@ -54,9 +54,9 @@ class App {
                const clicked = event.target;
 
                if (clicked.classList.contains('close') || clicked.classList.contains('overlay')) {
-                 location.hash = self.checkboxService.getCurrentState();
-                 // window.history.pushState(null, null, '/' + self.checkboxService.getCurrentState());
-                 // this.router.render(decodeURI(window.location.pathname));
+                 // location.hash = self.checkboxService.getCurrentState();
+                 window.history.pushState(null, null, '/' + self.checkboxService.getCurrentState());
+                 this.router.render(decodeURI(window.location.pathname));
                }
            }
         });
@@ -82,13 +82,13 @@ class App {
 
     renderFilterResults() {
       console.log('filter result');
-      // let filter = location.pathname.split('filter/')[1].trim();
-      let filter = location.hash.split('#filter/')[1].trim();
+      let filter = location.pathname.split('filter/')[1].trim();
+      // let filter = location.hash.split('#filter/')[1].trim();
         try {
             filter = JSON.parse(decodeURI(filter))
         } catch (e) {
-          window.location.hash = '#';
-          // window.location.href = '';
+          // window.location.hash = '#';
+          window.location.href = '';
             return false;
         }
 
@@ -99,8 +99,8 @@ class App {
     renderSingleProduct() {
         const page = document.querySelector('.single-product');
         const container = document.querySelector('.preview-large');
-        // const index = location.pathname.split('product/')[1].trim();
-        const index = location.hash.split('#product/')[1].trim();
+        const index = location.pathname.split('product/')[1].trim();
+        // const index = location.hash.split('#product/')[1].trim();
         if (this.products.length) {
             this.products.forEach((item) => {
                 if (Number(item.id) === Number(index)) {
@@ -124,9 +124,9 @@ class App {
         list.querySelectorAll('li').forEach((li) => {
             li.addEventListener('click', (event) => {
                 event.preventDefault();
-                window.location.hash = `product/${li.dataset.index}`;
-                // window.history.pushState(null, null, `/product/${li.dataset.index}`);
-                // this.router.render(decodeURI(window.location.pathname));
+                // window.location.hash = `product/${li.dataset.index}`;
+                window.history.pushState(null, null, `/product/${li.dataset.index}`);
+                this.router.render(decodeURI(window.location.pathname));
     })
         });
     }

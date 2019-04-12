@@ -53,8 +53,8 @@ export class CheckboxService {
     }
 
     setInitialState() {
-        if (location.hash.includes('#filter/')) {
-            let filter = location.hash.split('#filter/')[1].trim();
+        if (location.hash.includes('filter/')) {
+            let filter = location.hash.split('filter/')[1].trim();
           console.log(filter);
           try {
                 this.filters = JSON.parse(decodeURI(filter));
@@ -122,12 +122,12 @@ export class CheckboxService {
 
     createQueryHash(filters) {
         if (Object.keys(filters).length > 0) {
-            return `#filter/${JSON.stringify(filters)}`;
-            // return `filter/${JSON.stringify(filters)}`;
+            // return `#filter/${JSON.stringify(filters)}`;
+            return `filter/${JSON.stringify(filters)}`;
         }
 
-        return '#';
-        // return '';
+        // return '#';
+        return '';
     }
 
 }

@@ -12,7 +12,6 @@ export class RouterHistory {
     // this.render(decodeURI(window.location.pathname));
 
     window.addEventListener('popstate', () => {
-      console.log(1);
       this.render(decodeURI(window.location.pathname));
     });
 
