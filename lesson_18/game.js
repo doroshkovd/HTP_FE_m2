@@ -1,3 +1,19 @@
+const config = {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 75,
+    mainFillColor: '#0095DD',
+    mainStrokeColor: '#333',
+    brickRowCount: 3,
+    brickColumnCount: 5,
+    brickWidth: 75,
+    brickHeight: 20,
+    brickPadding: 10,
+    brickOffsetTop: 30,
+    brickOffsetLeft: 30,
+    accelerate:  0.1,
+};
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -36,7 +52,7 @@ const bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
     for (let r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = {x: 0, y: 0, status: 1};
+        bricks[c][r] = {x: 0, y: 0, status: 2};
     }
 }
 
@@ -90,14 +106,14 @@ function drawPaddle() {
 function drawBricks() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
-            if (bricks[c][r].status === 1) {
+            if (bricks[c][r].status === 1 || bricks[c][r].status === 2) {
                 let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
                 let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = mainFillColor;
+                ctx.fillStyle = bricks[c][r].status === 2 ? mainFillColor : 'red';
                 ctx.strokeStyle = mainStrokeColor;
                 ctx.fill();
                 ctx.stroke();
@@ -111,14 +127,16 @@ function collisionDetection() {
     for (let c = 0; c < brickColumnCount; c++) {
         for (let r = 0; r < brickRowCount; r++) {
             const b = bricks[c][r];
-            if (b.status === 1 &&
+            if ((b.status === 1 || b.status === 2) &&
                 x > b.x &&
                 x < b.x + brickWidth &&
                 y > b.y &&
                 y < b.y + brickHeight) {
                 dy = -dy;
-                b.status = 0;
-                score++;
+                b.status--;
+                if (b.status === 0) {
+                    score++;
+                }
                 dx = dx + dx * accelerate;
                 dy = dy + dy * accelerate;
                 if (score === brickRowCount * brickColumnCount) {
@@ -198,3 +216,27 @@ function draw() {
 }
 
 draw();
+
+class Game {
+    constructor(config) {
+        const defaultConfig = {
+            ballRadius: 10,
+            paddleHeight: 10,
+            paddleWidth: 75,
+            mainFillColor: '#0095DD',
+            mainStrokeColor: '#333',
+            brickRowCount: 3,
+            brickColumnCount: 5,
+            brickWidth: 75,
+            brickHeight: 20,
+            brickPadding: 10,
+            brickOffsetTop: 30,
+            brickOffsetLeft: 30,
+            accelerate:  0.1,
+        };
+
+        this.config = config || defaultConfig;
+    }
+}
+
+game = new Game(customConfig);
