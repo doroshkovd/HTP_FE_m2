@@ -34,6 +34,7 @@ const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 const accelerate = 0.1;
+const times = [];
 
 let lives = 3;
 
@@ -142,6 +143,8 @@ function collisionDetection() {
                 if (score === brickRowCount * brickColumnCount) {
                     alert('You Win!!!');
                     document.location.reload();
+                    clearInterval(idInterval);
+
                 }
             }
         }
@@ -161,6 +164,24 @@ function drawLives() {
     ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
 }
 
+function drawFPS(fps) {
+    ctx.font = '18px';
+    ctx.fillStyle = 'red';
+    ctx.fillText(`FPS: ${fps}`, 10, canvas.height - 10)
+}
+
+function countFPS() {
+   let now = Date.now();
+
+   if (times.length > 0 && times[0] < now - 1000) {
+       times.shift();
+   }
+   times.push(now);
+
+   return times.length;
+
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
@@ -169,6 +190,7 @@ function draw() {
     drawScore();
     drawLives();
     drawBall();
+    drawFPS(countFPS());
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
 
@@ -199,6 +221,7 @@ function draw() {
             if (!lives) {
                 alert('GAME OVER');
                 document.location.reload();
+                clearInterval(idInterval);
             } else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;
@@ -212,10 +235,10 @@ function draw() {
 
     x += dx;
     y += dy;
-    requestAnimationFrame(draw);
+    // requestAnimationFrame(draw);
 }
 
-draw();
+let idInterval = setInterval(draw, 1000 / 60);
 
 class Game {
     constructor(config) {

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+​
+<!--<form name="form1" onclick="alert('form')">FORM​-->
+    <!--<div id="divOut">DIV​-->
+        <!--<p id="pInner">P</p>​-->
+    <!--</div>​-->
+<!--</form>-->
+<!--<button id="elem" onclick="handlerClickEvent(event);">Автоклик</button>​-->
+​<h1 id="result">Result: <span>100</span></h1>
+
+<input onkeypress="inputHandler(event)" type="text">
+<script>
+window.onbeforeunload = () => {
+    localStorage.setItem('data', 'save');
+    return 'Are you sure???';
+}
+
+    function inputHandler(e) {
+        console.log(e);
+    }
+    window.result.addEventListener('done', (e) => {
+        console.log('Ваш результат:', e.detail);
+    });
+
+    window.result.addEventListener('click', (e) => {
+        console.log(e.which);
+    });
+
+    window.result.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        console.log(e.which);
+    });
+
+    const doneEvent = new CustomEvent('done', {detail: window.result.querySelector('span').innerHTML});
+    console.log('dispatch after 3s');
+
+    setTimeout(() => {
+        window.result.dispatchEvent(doneEvent);
+    }, 3000);
+
+    // function handlerClickEvent(event) {
+    //     console.log(event.clientX);
+    //     console.log(event.clientY);
+    //
+    // }
+    // var event = new Event('click');
+    // var event = new MouseEvent('click', {bubbles: true, cancelable: true, clientX: 100, clientY: 101});
+    // window.elem.dispatchEvent(event);
+    // window.divOut.addEventListener('click', (e) => {
+    //     alert('div');
+    //     // e.stopImmediatePropagation();
+    //     e.stopPropagation();
+    // }, true);
+    //
+    // window.pInner.addEventListener('click', () => {
+    //    alert('p');
+    // }, true);
+    //
+    // console.log(document.forms);
+</script>
+<!--<script src="index.js"></script>-->
+</body>
+</html>
