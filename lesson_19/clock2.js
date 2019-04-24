@@ -7,7 +7,7 @@ const animateCtx = animateCanvas.getContext('2d');
 const width = 480;
 const radius = 200;
 
-animateCtx.translate(240, 240);
+
 
 //set bgCanvas size
 bgCanvas.width = width;
@@ -16,6 +16,7 @@ bgCanvas.height = width;
 //set animateCanvas size
 animateCanvas.height = width;
 animateCanvas.width = width;
+animateCtx.translate(240, 240);
 
 const styles = {
   position: 'absolute',
@@ -25,6 +26,7 @@ bgCanvas.styles = Object.assign(bgCanvas.style, styles, {display: 'block', zInde
 animateCanvas.styles = Object.assign(animateCanvas.style, styles, {display: 'block', zIndex: '2'});
 document.body.appendChild(bgCanvas);
 document.body.appendChild(animateCanvas);
+
 
 function drawDisk() {
     bgCtx.translate(240, 240);
