@@ -1,0 +1,10 @@
+<div>
+  <label for="add-car-name">Name:</label>
+  <input id="add-car-name" class="form-control" type="text" name="car-name" [(ngModel)]="carName" />
+</div>
+<div>
+  <label for="add-car-year">Year:</label>
+  <input id="add-car-year" class="form-control" type="text" name="car-name" [(ngModel)]="carYear" />
+</div>
+<hr />
+<button (click)="addCar()" class="btn btn-info">Add Car</button>

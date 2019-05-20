@@ -1,0 +1,17 @@
+<ng-content></ng-content>
+<app-add-car (carAdded)="onCarAdded($event)"></app-add-car>
+<hr />
+
+<div class="alert alert-success" *ngIf="isMsgShow">The Car was added</div>
+<ng-template #carAddedTmp>
+  <p>The car wasn't added</p>
+</ng-template>
+<hr />
+<hr>
+<input name="filter-input" [(ngModel)]="filter" >
+<ul class="list-group">
+<app-car *ngFor="let car of cars | filtr:filter:'carName'; let i = index"
+         [carName]="car.carName"
+         [carYear]="car.carYear"
+         (isNameChanges)="onNameChanges(i)"></app-car>
+</ul>

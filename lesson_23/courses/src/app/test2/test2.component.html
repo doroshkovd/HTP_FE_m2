@@ -1,0 +1,17 @@
+<p appBack [hoverColor]="'blue'" [defaultColor]="'yellow'">
+  {{message}}
+</p>
+
+
+<ul class="list-group">
+  <li *ngFor="let item of items" (click)="onClick(item)">
+    {{item}}
+  </li>
+</ul>
+<div [ngSwitch]="value">
+  <p *ngSwitchCase="1">1</p>
+  <p *ngSwitchCase="2">2</p>
+  <p *ngSwitchCase="3">3</p>
+  <p *ngSwitchCase="4">4</p>
+  <p *ngSwitchDefault>More then 4</p>
+</div>
