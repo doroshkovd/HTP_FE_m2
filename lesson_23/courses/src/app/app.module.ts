@@ -13,6 +13,7 @@ import { BackDirective } from './back.directive';
 import { TestPipesComponent } from './test-pipes/test-pipes.component';
 import { MultPipe } from './mult.pipe';
 import { FiltrPipe } from './filtr.pipe';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FiltrPipe } from './filtr.pipe';
     TestPipesComponent,
     MultPipe,
     FiltrPipe,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
