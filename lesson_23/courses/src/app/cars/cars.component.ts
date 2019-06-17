@@ -1,7 +1,8 @@
 import {CarComponent} from "../car/car.component";
 import {Component, ContentChild, ElementRef, OnInit, ViewChild, ViewEncapsulation}
-  from '@angular/core';
+ from '@angular/core';
 import { Car } from "../models/car.model";
+import {CarsService} from "../cars.service";
 
 @Component({
   selector: 'app-cars',
@@ -18,25 +19,19 @@ export class CarsComponent implements OnInit {
   public carName: string;
   public isCarAdded: boolean = false;
   public filter = '';
-  public cars: Car[] = [{
-    carName: 'Ford',
-    carYear: '2009'
-  },{
-    carName: 'BMW',
-    carYear: '2019'
-  },
-  ];
+  public cars: Car[];
   public isMsgShow: boolean = false;
 
-  constructor() {
+  constructor(private carsService: CarsService) {
   }
 
   public ngOnInit() {
-  }
-
-  public onCarAdded(car: Car) {
-    this.cars.push(car);
-    this.showMessage();
+    this.cars = this.carsService.cars;
+    this.carsService.carAdded.subscribe((isAdded: boolean) => {
+      if (isAdded) {
+        this.showMessage();
+      }
+    });
   }
 
   private showMessage() {
@@ -46,5 +41,4 @@ export class CarsComponent implements OnInit {
       this.isMsgShow = false;
     }, 3000);
   }
-
 }

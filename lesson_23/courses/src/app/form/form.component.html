@@ -1,17 +1,22 @@
 <div class="col-xs-8 col-xs-offset-2">
-  <form>
-
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control">
+  <form (ngSubmit)="onSubmit(form)" #form=ngForm>
+    <div ngModelGroup="userData" #userData=ngModelGroup>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ngModel name="name"
+        required email #name=ngModel
+        >
+        <div *ngIf="!name.valid && name.touched">Поле имя обязательно. Должно в формате email.</div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" ngModel name="password" required>
+      </div>
+      <p *ngIf="userData.touched && !userData.valid">Неправльные данные пользователя</p>
     </div>
     <div class="form-group">
       <label>Where are you from?</label>
-      <select class="form-control">
+      <select class="form-control" [ngModel]="defaultSelect" name="country" required>
         <option value="by">Belarus</option>
         <option value="us">USA</option>
         <option value="uk">UK</option>
@@ -19,10 +24,13 @@
     </div>
     <div class="radio" *ngFor="let ans of answers">
       <label>
-        <input type="radio" [value]="ans.type"> {{ans.text}}
+        <input required type="radio" [ngModel]="defaultRadio" name="answer" [value]="ans.type"> {{ans.text}}
       </label>
     </div>
-    <button class="btn btn-success" type="submit">Save</button>
+    <button class="btn btn-success" [disabled]="!form.valid" type="submit">Save</button>
 
   </form>
+  <hr />
+  <button class="btn btn-primary" (click)="setDefaultValues()">Use default</button>
+
 </div>

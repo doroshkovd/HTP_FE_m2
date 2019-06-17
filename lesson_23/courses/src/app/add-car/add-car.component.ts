@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Car} from "../models/car.model";
+import {CarsService} from "../cars.service";
 
 @Component({
   selector: 'app-add-car',
@@ -11,15 +12,13 @@ export class AddCarComponent implements OnInit {
   public carName: string;
   public carYear: string;
 
-  @Output() carAdded: EventEmitter<Car> = new EventEmitter();
-
-  constructor() { }
+  constructor(private carsService: CarsService) { }
 
   ngOnInit() {
   }
 
   public addCar() {
-    this.carAdded.emit({carName: this.carName, carYear: this.carYear});
+    this.carsService.addCar({carName: this.carName, carYear: this.carYear});
     this.carName = '';
     this.carYear = '';
   }

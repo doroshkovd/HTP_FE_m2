@@ -1,0 +1,34 @@
+<div class="col-xs-8 col-xs-offset-2">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formGroupName="userData">
+      <div class="form-group">
+        <label>Name</label>
+        <input formControlName="name" type="text" class="form-control">
+        <div *ngIf="form.get('userData.name').invalid && form.get('userData.name').touched">Поле обязательно. Формат - Email.</div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control">
+        <div *ngIf="form.get('userData.password').invalid && form.get('userData.password').touched">Поле обязательно</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Where are you from?</label>
+      <select class="form-control" formControlName="country">
+        <option value="by">Belarus</option>
+        <option value="us">USA</option>
+        <option value="uk">UK</option>
+      </select>
+    </div>
+    <div class="radio" *ngFor="let ans of answers">
+      <label>
+        <input type="radio" formControlName="answer" [value]="ans.type"> {{ans.text}}
+      </label>
+    </div>
+    <button class="btn btn-success" [disabled]="form.invalid" type="submit">Save</button>
+
+  </form>
+</div>
+<div>
+  <a (click)="goToCars()">Открыть страницу Cars</a>
+</div>
